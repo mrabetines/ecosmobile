@@ -1,0 +1,15 @@
+<resources>>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/vaytek_dark</item>
+    </style>
+
+    <style name="VaytekButtonStyle" parent="android:Widget.Material.Button">
+        <item name="android:background">@color/vaytek_primary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+</resources>

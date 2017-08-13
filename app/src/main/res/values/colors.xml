@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1a79d8</color>
+    <color name="colorPrimaryDark">#273a4c</color>
+    <color name="colorAccent">#1a79d8</color>
+    <color name="colorItemsTitre">#B43104</color>
+    <color name="colorTitreItem">#dddddd</color>
+    <color name="green">#008000</color>
+    <color name="red">#FF0000</color>
+    <color name="black">#000</color>
+    <color name="vaytek_dark">#273a4c</color>
+    <color name="vaytek_primary">#1a79d8</color>
+    <color name="vaytek_background">#C0C9D8</color>
+    <color name="white">#FFFFFF</color>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Ecos App</string>
+    <string name="title_activity_scanner">ScannerActivity</string>
+</resources>

@@ -1,0 +1,104 @@
+package tn.iac.mobiledevelopment.ecosapp.App;
+
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.List;
+
+import retrofit.RestAdapter;
+import tn.iac.mobiledevelopment.ecosapp.Model.Session;
+import tn.iac.mobiledevelopment.ecosapp.R;
+import tn.iac.mobiledevelopment.ecosapp.Utils;
+
+public class MainActivity extends AppCompatActivity {
+    private List<Session> sessionList;
+    String authorization = null;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        if (!Utils.isUserAuthenticated(this)) {
+            // perform auth
+            Intent intent = new Intent(this, AuthActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+        } else {
+            new ListSessionsTask().execute();
+        }
+
+    }
+
+    class ListSessionsTask extends AsyncTask<Void, Void, List<Session>> {
+        private ProgressDialog progress = null;
+
+        @Override
+        protected List<Session> doInBackground(Void... params) {
+            GithubService githubService = new RestAdapter.Builder()
+                    .setEndpoint(GithubService.ENDPOINT)
+                    .build()
+                    .create(GithubService.class);
+
+            sessionList = githubService.listSessions(authorization);
+
+            return sessionList;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            progress = ProgressDialog.show(
+                    MainActivity.this, null, "Loading ...");
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(List<Session> sessions) {
+            super.onPostExecute(sessions);
+
+            createButtonSession(getApplicationContext(), sessions);
+
+
+            progress.dismiss();
+        }
+
+        public void createButtonSession(Context context, List<Session> sessions) {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.layoutSession);
+            for (int i = 0; i < sessions.size(); i++) {
+                Button sessionButton = new Button(context);
+                sessionButton.setText(sessions.get(i).getNom());
+                sessionButton.setId(sessions.get(i).getId_Session());
+                final int id_ = sessionButton.getId();
+
+                layout.addView(sessionButton);
+
+                clickEvent(id_, sessionButton, context);
+
+
+            }
+        }
+
+        public void clickEvent(final int id_, Button sessionButton, final Context context) {
+            sessionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ExamenActivity.class);
+                    intent.putExtra("id_Session", id_);
+                    startActivity(intent);
+                    Toast.makeText(context, id_ + "", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+    }
+}
