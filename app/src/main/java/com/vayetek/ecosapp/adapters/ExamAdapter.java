@@ -17,12 +17,14 @@ import com.vayetek.ecosapp.models.Examen;
 
 //added by ines
 import android.view.View.OnLongClickListener;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 
 public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
 
     private final Context context;
     private final List<Examen> listSessions;
+    //OnLongClickAdapter onLongClickAdapter;
     //
     private IntentIntegrator qrScan;
 
@@ -30,10 +32,8 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
         this.context = context;
         this.listSessions = sessions;
         //
-        qrScan = new IntentIntegrator((MainActivity)context);
+        qrScan = new IntentIntegrator((MainActivity) context);
     }
-
-
 
 
     @Override
@@ -56,15 +56,21 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
             }
         });
         /////added by ines
-       holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
-           @Override
-           public boolean onLongClick(View view) {
-               ((MainActivity)context).setVariable(examen.getId_Examen());
-               qrScan.initiateScan();
-               return false;
-           }
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+               /* try {
+                    onLongClickAdapter = (OnLongClickAdapter) context;
+                } catch (ClassCastException e) {
+                    Log.d("ex",e.getMessage());
+                }
+                onLongClickAdapter.onLongClickAdapter(examen.getId_Examen());*/
+                ((MainActivity) context).setVariable(examen.getId_Examen());
+                qrScan.initiateScan();
+                return false;
+            }
 
-       });
+        });
 
     }
 
@@ -95,5 +101,13 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ViewHolder> {
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
+
+   /* public interface OnLongClickAdapter {
+        public void onLongClickAdapter(int id_Examen);
+    }
+
+    public void setOnLongClickAdapter(OnLongClickAdapter onLongClickAdapter) {
+        this.onLongClickAdapter = onLongClickAdapter;
+    }*/
 
 }

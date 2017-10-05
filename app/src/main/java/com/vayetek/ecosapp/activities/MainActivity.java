@@ -14,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.vayetek.ecosapp.R;
 import com.vayetek.ecosapp.Utils;
+import com.vayetek.ecosapp.adapters.ExamAdapter;
 import com.vayetek.ecosapp.fragments.SessionFragment;
 //added by ines
 import com.google.zxing.integration.android.IntentResult;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity /*implements ExamAdapter.OnLongClickAdapter*/{
     PresenceService presenceService;
     private int variable;
     @Override
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     //Log.d("onActivityResult", qr_code );
                     JsonObject postParams = new JsonObject();
                     postParams.addProperty("qr_code", qr_code);
+                Log.d("id_Examen",this.variable+"");
                     postParams.addProperty("id_Examen", this.variable);
                     Call<JsonElement> call = presenceService.markPresence(postParams);
                     call.enqueue(new Callback<JsonElement>() {
@@ -106,4 +108,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+   /* @Override
+    public void onLongClickAdapter(int id_Examen) {
+        Log.d("id_Examen Listner",id_Examen+"");
+        this.variable = id_Examen;
+    }*/
 }

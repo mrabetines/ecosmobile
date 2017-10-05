@@ -53,6 +53,7 @@ public class ExamFragment extends Fragment {
         idSession = getArguments().getInt("idSession");
         progress = new ProgressDialog(getContext());
         progress.setMessage("Chargement ...");
+        setRetainInstance(true);
     }
 
 

@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".activities.SessionActivity" />
         <activity
             android:name=".fragments.GrilleActivity"
